@@ -1,0 +1,8 @@
+spring:
+  r2dbc:
+    url: "r2dbc:postgresql://postgres@localhost:5432/company"
+    password: password
+    username: username
+
+server:
+  port : 9092

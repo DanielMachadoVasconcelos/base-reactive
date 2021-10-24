@@ -1,0 +1,8 @@
+rootProject.name = 'base-reactive'
+
+include 'common'
+include 'sales'
+include 'shipment'
+include 'warehouse'
+include 'integration-test'
+

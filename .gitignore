@@ -53,3 +53,4 @@ hs_err_pid*
 /build/dockerCompose/state.txt
 /.gradle/7.0.2/javaCompile/taskHistory.bin
 /.idea/vcs.xml
+/dbdata/
