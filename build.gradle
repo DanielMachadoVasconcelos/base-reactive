@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.springframework.boot' version '2.5.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "com.avast.gradle.docker-compose" version "0.14.9"
+}
+
+group = 'br.com.ead.base.reactive'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dockerCompose.isRequiredBy(test)
+
+dockerCompose {
+    projectName = 'base-reactive'
+    projectNamePrefix  = 'docker-compose'
+    stopContainers = false
+    removeContainers = false
+    removeOrphans = true
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    implementation 'org.springframework.cloud:spring-cloud-dependencies:2020.0.3'
+    implementation 'org.springframework.cloud:spring-cloud-circuitbreaker-resilience4j:2.0.2'
+    implementation 'org.springframework.cloud:spring-cloud-commons:3.0.3'
+
+    implementation 'org.springframework:spring-aspects'
+    implementation 'org.springframework.retry:spring-retry'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "skipped", "failed"
+    }
+}
